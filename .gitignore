@@ -1,0 +1,6 @@
+.bzr
+project.properties
+bin/
+gen/
+local.properties
+ant.properties

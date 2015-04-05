@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="board_width">4</integer>
+    <integer name="board_height">5</integer>
+    <integer name="separation">2</integer>
+</resources>
