@@ -22,14 +22,22 @@ along with the echsecutable Memory App.  If not, see
 <http://www.gnu.org/licenses/>.
 
 
-All grafics are created by Melanie S. Schmittner and licensed under
-the Creative Commons Attribution 4.0 International License. To view a
-copy of this license, visit
-http://creativecommons.org/licenses/by/4.0/.
-
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Drawings</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Melanie S. Schmittner</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Drawings</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Melanie S. Schmittner</span> are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
 
-All sounds are created by Sebastian E. Schmittner using audacity and
-dedicated to the public domain under
-http://creativecommons.org/publicdomain/zero/1.0/
+<p xmlns:dct="http://purl.org/dc/terms/" xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#">
+  <a rel="license"
+     href="http://creativecommons.org/publicdomain/zero/1.0/">
+    <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
+  </a>
+  <br />
+  To the extent possible under law,
+  <span resource="[_:publisher]" rel="dct:publisher">
+    <span property="dct:title">Sebastian E. Schmittner</span></span>
+  has waived all copyright and related or neighboring rights to the
+  <span property="dct:title">sounds for the Echsecutable Memory App</span>.
+This work is published from:
+<span property="vcard:Country" datatype="dct:ISO3166"
+      content="DE" about="[_:publisher]">
+  Germany</span>.
+</p>
