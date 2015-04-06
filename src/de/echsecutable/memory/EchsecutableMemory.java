@@ -1,6 +1,6 @@
 /**********************************************************************
 *
-* @file EchsesMemory.java
+* @file EchsecutableMemory.java
 *
 * @version 1.0.2015-04-04
 *
@@ -40,23 +40,23 @@ import android.media.AudioManager;
 
 import android.util.Log;
 
-//just loads EchsesMemoryView
-public class EchsesMemory extends Activity
+//just loads EchsecutableMemoryView
+public class EchsecutableMemory extends Activity
 {
-    private static final String TAG = "EchsesMemory";
+    private static final String TAG = "EchsecutableMemory";
 
-    private EchsesMemoryView myView;
+    private EchsecutableMemoryView myView;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-	Log.v(TAG,"Creating EchsesMemory...");
+	Log.v(TAG,"Creating EchsecutbaleMemory...");
 	setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-	myView = new EchsesMemoryView(this, savedInstanceState);
+	myView = new EchsecutableMemoryView(this, savedInstanceState);
         setContentView(myView);
 
-	Log.v(TAG,"EchsesMemory created");
+	Log.v(TAG,"EchsecutbaleMemory created");
     }
 
     @Override

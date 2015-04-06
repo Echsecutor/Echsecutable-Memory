@@ -1,6 +1,6 @@
 /**********************************************************************
 *
-* @file EchsesMemoryEngine.java
+* @file EchsecutableMemoryEngine.java
 *
 * @version 1.0.2015-04-04
 *
@@ -63,9 +63,9 @@ import java.lang.Exception;
 import android.util.Log;
 import android.graphics.Color;
 
-class EchsesMemoryEngine extends Thread{
+class EchsecutableMemoryEngine extends Thread{
 
-    private static final String TAG = "EchsesMemoryEngine";
+    private static final String TAG = "EchsecutableMemoryEngine";
 
     private SurfaceHolder mSurfaceHolder;
 
@@ -108,7 +108,7 @@ private int boardHeight;
     private int fieldWidth;
     private int fieldHeight;
 
-    public EchsesMemoryEngine(SurfaceHolder surfaceHolder, Context _context, Bundle savedInstance) throws Exception{
+    public EchsecutableMemoryEngine(SurfaceHolder surfaceHolder, Context _context, Bundle savedInstance) throws Exception{
 
         Log.v(TAG, "Constructing Engine...");
 
@@ -142,7 +142,7 @@ private int boardHeight;
         Log.v(TAG, "Loading Images...");
 
         do {
-            resID=res.getIdentifier("img_"+imgnmbr, "drawable", "de.echse.memory");
+            resID=res.getIdentifier("img_"+imgnmbr, "drawable", "de.echsecutable.memory");
             if (resID!=0){
                 images.add(resID);
                 imgnmbr++;
@@ -311,9 +311,6 @@ private int boardHeight;
 
     }
 
-    public void pause() {
-	//pause animation
-    }
 
 
     public void doDraw(Canvas canvas){
@@ -381,8 +378,7 @@ private int boardHeight;
             } catch (InterruptedException e) {
             }
         }
-
-        Log.v(TAG, "Clean end of thread.");
+        Log.v(TAG, "Audio thread joined.");
 
     }//end run()
 
