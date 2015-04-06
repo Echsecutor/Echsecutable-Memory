@@ -1,6 +1,6 @@
 # Echsecutable-Memory
 
-This is a simple Memory App with original grafics. The focus is on simplicit suitability for children, hence there are no text dialogs and of course no ads.
+This is a simple Memory App with original grafics. The focus is on simplicit and suitability for children, hence there are no text dialogs/buttons and of course no ads.
 
 
 ##License
