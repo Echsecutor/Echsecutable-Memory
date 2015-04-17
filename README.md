@@ -2,6 +2,10 @@
 
 This is a simple Memory App with original grafics. The focus is on simplicit and suitability for children, hence there are no text dialogs/buttons and of course no ads.
 
+##Privacy Policy
+
+This app does not collect or use any personal data.
+
 
 ##License
 
