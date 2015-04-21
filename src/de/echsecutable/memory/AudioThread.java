@@ -47,6 +47,7 @@ import android.os.Looper;
 
 import android.util.Log;
 
+import android.os.Build.VERSION;
 
 class AudioThread extends Thread implements OnAudioFocusChangeListener, OnCompletionListener, Handler.Callback{
 
@@ -77,6 +78,13 @@ class AudioThread extends Thread implements OnAudioFocusChangeListener, OnComple
 	return handler;
     }
 
+    public int getAPIlevel(){
+	int re=Integer.parseInt(VERSION.SDK);
+	if(re>=4)
+	    return VERSION.SDK_INT;
+	return re;
+    }
+
     @Override
     public boolean handleMessage(Message msg) {
 
@@ -85,7 +93,12 @@ class AudioThread extends Thread implements OnAudioFocusChangeListener, OnComple
         switch(msg.what){
         case MSG_STOP_THREAD:
 	    Log.v(TAG, "Stopping loop...");
-            handler.getLooper().quitSafely();
+	    //quitSafely is only avaiable from API level 18 on
+	    if(getAPIlevel()>=18){
+		handler.getLooper().quitSafely();
+	    }else{
+		handler.getLooper().quit();
+	    }
 	    return true;
         case MSG_PLAY_SOUND:
 	    Log.v(TAG, "Playing sound...");
