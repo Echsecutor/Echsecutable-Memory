@@ -237,7 +237,7 @@ private int boardHeight;
 
             try{
                 //disregard clicks on uncovered cards
-                if(state!=STATE_WON && !covered[fieldId]){
+                if((state==STATE_COVERED||state==STATE_ONE_UNCOVERED) && !covered[fieldId]){
                     Log.v(TAG,"Card already uncovered.");
                     return;
                 }
@@ -282,6 +282,8 @@ private int boardHeight;
                     covered[indexField1]=true;
                     covered[indexField2]=true;
                     state=STATE_COVERED;
+                    Log.v(TAG, "Re-click to avoid 'lag'.");
+		    doTouch(MotionEvent e);
                     break;
 
                 case STATE_WON:
