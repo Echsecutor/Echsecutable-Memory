@@ -99,16 +99,26 @@ class EchsecutableMemoryEngine extends Thread{
 
     private int imgnmbr;
 
-    private int boardWidth;
-private int boardHeight;
+    // in # fields:
+    private int board_dim_short;
+    private int board_dim_long;
+    private int boardArea;
+
+    // rotate the fields, not the board on turning the phone
+    private boolean portraitMode;
+
     private int bgColor;
 
     private Bitmap fieldBg;
+
+    // in px:
     private int fieldSep;
     private int fieldWidth;
     private int fieldHeight;
 
+
     public EchsecutableMemoryEngine(SurfaceHolder surfaceHolder, Context _context, Bundle savedInstance) throws Exception{
+
 
         Log.v(TAG, "Constructing Engine...");
 
@@ -118,20 +128,25 @@ private int boardHeight;
 
         res = context.getResources();
 	
-        boardWidth = res.getInteger(R.integer.board_width);
-        boardHeight = res.getInteger(R.integer.board_height);
+        board_dim_short = res.getInteger(R.integer.board_dim_short);
+        board_dim_long = res.getInteger(R.integer.board_dim_long);
+	boardArea=board_dim_short*board_dim_long;
 
-        if(boardWidth*boardHeight % 2 == 1){
-            boardHeight--;
+        if(boardArea % 2 == 1){
+            board_dim_long--;
+	    boardArea=board_dim_short*board_dim_long;
         }
+
+	//default:
+	portraitMode = true;
 
         bgColor = res.getColor(R.color.bgColor);
 
         fieldBg = BitmapFactory.decodeResource(res,R.drawable.fieldbg);
         fieldSep = res.getInteger(R.integer.separation);
 
-        matching = new int[boardWidth*boardHeight];
-        covered = new boolean[boardWidth*boardHeight];
+        matching = new int[boardArea];
+        covered = new boolean[boardArea];
 
         //determine resource IDs of images
         int resID=0;
@@ -148,7 +163,7 @@ private int boardHeight;
                 imgnmbr++;
             }
         }while (resID!=0);
-        if(imgnmbr<boardWidth*boardHeight/2){
+        if(imgnmbr<boardArea/2){
             Log.e(TAG, "Not enough Images!");
             throw new Exception("Not enough images for this board size!");
         }
@@ -191,24 +206,24 @@ private int boardHeight;
 
     public void shuffle(){
         Log.v(TAG, "Shuffling...");
-        hiddenPairs = boardWidth * boardHeight/2;
+        hiddenPairs = boardArea/2;
 
         //shuffle memory cards
         Random rnd = new Random();
-        for(int i=0;i<boardWidth * boardHeight;i++){
+        for(int i=0;i<boardArea;i++){
             matching[i]=-1;
             covered[i]=true;
         }
         int offset = 0;
-        if(imgnmbr>boardWidth * boardHeight/2){
-            offset = rnd.nextInt(imgnmbr-boardWidth * boardHeight/2);
+        if(imgnmbr>boardArea/2){
+            offset = rnd.nextInt(imgnmbr-boardArea/2);
         }
 
         // matching[fieldId] = imageId
-        for(int i=0;i<boardWidth * boardHeight;i++){
-            int x=rnd.nextInt(boardWidth * boardHeight);
+        for(int i=0;i<boardArea;i++){
+            int x=rnd.nextInt(boardArea);
             while(matching[x]!=-1){
-                x=rnd.nextInt(boardWidth * boardHeight);
+                x=rnd.nextInt(boardArea);
             }
             matching[x]=(int)(i/2) + offset;
         }
@@ -224,6 +239,27 @@ private int boardHeight;
     }
 
 
+    /// convert (x,y) in #fileds to field ID
+    public int getFieldId(int x, int y){
+	//portraitMode
+	if(portraitMode){
+	    return y*board_dim_short + x;
+	}	
+	return board_dim_short - 1 - y + x * board_dim_short;
+    }
+
+    /// convert canvas click coords to field ID
+    public int getFieldId(float x, float y){
+	return getFieldId((int)(x/fieldWidth),(int)(y/fieldHeight));
+	/*	if(portraitMode){
+	    return (int)(x/fieldWidth) + (int)(y/fieldHeight) * board_dim_short;
+	}
+	// indexing: up and right in landscape mode
+	return (int)(x/fieldWidth) * board_dim_short + board_dim_short - 1 - (int)(y/fieldHeight);
+	*/
+    }
+
+
     public void doTouch(MotionEvent e){
         float x = e.getX();
         float y = e.getY();
@@ -233,7 +269,8 @@ private int boardHeight;
         case MotionEvent.ACTION_POINTER_UP:
             Log.v(TAG,"Pointer up received.");
 
-	    int fieldId = (int)(x/fieldWidth) + (int)(y/fieldHeight) * boardWidth;
+
+	    int fieldId = getFieldId(x,y);
 
             try{
                 //disregard clicks on uncovered cards
@@ -283,7 +320,7 @@ private int boardHeight;
                     covered[indexField2]=true;
                     state=STATE_COVERED;
                     Log.v(TAG, "Re-click to avoid 'lag'.");
-		    doTouch(MotionEvent e);
+		    doTouch(e);
                     break;
 
                 case STATE_WON:
@@ -303,8 +340,16 @@ private int boardHeight;
     public void setSurfaceSize(int width, int height) {
         // synchronized to make sure these all change atomically
         synchronized (mSurfaceHolder) {
-	    fieldWidth = width/boardWidth;
-	    fieldHeight = height/boardHeight;
+	    portraitMode = (height>width);
+
+	    if(portraitMode){
+		fieldWidth = width/board_dim_short;
+		fieldHeight = height/board_dim_long;
+	    }else{
+		fieldWidth = width/board_dim_long;
+		fieldHeight = height/board_dim_short;
+	    }
+	    
         }
     }
 
@@ -317,10 +362,16 @@ private int boardHeight;
 
     public void doDraw(Canvas canvas){
         canvas.drawColor(bgColor);
+	int maxX=board_dim_short;
+	int maxY=board_dim_long;
+	if(!portraitMode){
+	    maxX=board_dim_long;
+	    maxY=board_dim_short;
+	}
+        for(int x=0;x<maxX;x++){
+            for(int y=0;y<maxY;y++){
 
-        for(int x=0;x<boardWidth;x++){
-            for(int y=0;y<boardHeight;y++){
-                int fieldId=y*boardWidth+x;
+		int fieldId=getFieldId(x,y);
                 Bitmap img=fieldBg;
                 if(!covered[fieldId]){
                     // matching[fieldId] = imageId
