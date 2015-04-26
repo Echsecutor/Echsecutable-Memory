@@ -40,6 +40,8 @@ import android.media.AudioManager;
 
 import android.util.Log;
 
+import android.content.res.Configuration;
+
 //just loads EchsecutableMemoryView
 public class EchsecutableMemory extends Activity
 {
@@ -58,6 +60,7 @@ public class EchsecutableMemory extends Activity
 
 	Log.v(TAG,"EchsecutbaleMemory created");
     }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

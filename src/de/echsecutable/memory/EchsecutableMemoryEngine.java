@@ -157,7 +157,7 @@ class EchsecutableMemoryEngine extends Thread{
         Log.v(TAG, "Loading Images...");
 
         do {
-            resID=res.getIdentifier("img_"+imgnmbr, "drawable", "de.echsecutable.memory");
+            resID=res.getIdentifier("img_0_"+imgnmbr, "drawable", "de.echsecutable.memory");
             if (resID!=0){
                 images.add(resID);
                 imgnmbr++;
@@ -306,7 +306,7 @@ class EchsecutableMemoryEngine extends Thread{
                         if(hiddenPairs ==0){
                             //found all
                             Log.v(TAG,"Found all!");
-
+			    playWinSound();
                             state=STATE_WON;
                         }else{
                             Log.v(TAG,hiddenPairs + " remaining.");
@@ -348,6 +348,13 @@ class EchsecutableMemoryEngine extends Thread{
 	    }else{
 		fieldWidth = width/board_dim_long;
 		fieldHeight = height/board_dim_short;
+	    }
+
+	    //keeping the fields square looks better:
+	    if(fieldWidth<fieldHeight){
+		fieldHeight=fieldWidth;
+	    }else{
+		fieldWidth=fieldHeight;
 	    }
 	    
         }
@@ -455,6 +462,15 @@ class EchsecutableMemoryEngine extends Thread{
         msg.arg1 = R.raw.nopair;
         at.getHandler().sendMessage(msg);
     }
+
+    public void playWinSound(){
+        Log.v(TAG, "Play win sound!");
+        Message msg = Message.obtain();
+        msg.what=AudioThread.MSG_PLAY_SOUND;
+        msg.arg1 = R.raw.win;
+        at.getHandler().sendMessage(msg);
+    }
+
 
 
 }//end thread
