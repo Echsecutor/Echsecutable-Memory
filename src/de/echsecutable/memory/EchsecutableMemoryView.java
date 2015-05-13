@@ -92,7 +92,11 @@ class EchsecutableMemoryView extends SurfaceView implements SurfaceHolder.Callba
 
 
     public void saveState(Bundle outState){
-        engine.saveState(outState);
+        if (engine==null){
+	    outState = savedInstanceForPause;
+	}else{
+	    engine.saveState(outState);
+	}
     }
 
     /*
