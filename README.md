@@ -1,17 +1,17 @@
-#Echsecutable-Memory
+# Echsecutable-Memory
 
 This is a simple Memory App with original grafics. The focus is on simplicit and suitability for children, hence there are no text dialogs/buttons and of course no ads.
 
-##Privacy Policy
+## Privacy Policy
 
 This app does not collect or use any personal data.
 
-##Donations
+## Donations
 for the development of this and more libre Echsecutables are gratefully accepted.
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6UW443VE5TZCJ">
 <img src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif" border="0" alt="PayPal – The safer, easier way to pay online."></a>
 
-##License
+## License
 
 Copyright 2015 Melanie S. Schmittner and Sebastian E. Schmittner <sebastian@schmittner.pw>
 
